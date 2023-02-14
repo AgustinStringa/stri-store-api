@@ -13,5 +13,17 @@ users_router.get('/', function (req, res) {
     }
     res.json(users);
 });
+users_router.post('/', function (req, res) {
+
+    let message = ""
+    if (req.body.name) {
+        res.status(200);
+        message = "successfully created"
+    } else {
+        res.status(409);
+        message = "error on create"
+    }
+    res.json({ message });
+});
 
 module.exports = { route_name: 'users', router: users_router };

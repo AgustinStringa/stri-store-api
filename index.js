@@ -4,7 +4,8 @@ const app = express();
 const PORT = 3001;
 const routerApi = require('./routes');
 
-routerApi(app, "api");
+app.use(express.json())
+routerApi(app, "api/v1");
 
 app.listen(PORT, () => {
     console.log('CORRIENDO');
