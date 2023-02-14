@@ -15,4 +15,17 @@ products_router.get('/', function (req, res) {
     res.json(products);
 });
 
+products_router.post('/', function (req, res) {
+    const { body } = req;
+    res.json({ message: 'creando producto' }).status(201);
+});
+products_router.put('/', function (req, res) {
+    const { id } = req.body; v
+    res.json({ message: 'producto con id ' + id + ' modificado' });
+});
+products_router.delete('/', function (req, res) {
+    const { id } = req.body;
+    res.json({ message: 'Eliminando producto con id' + id });
+
+});
 module.exports = { route_name: 'products', router: products_router };

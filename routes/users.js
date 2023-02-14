@@ -20,7 +20,7 @@ users_router.post('/', function (req, res) {
         res.status(200);
         message = "successfully created"
     } else {
-        res.status(409);
+        res.status(204);
         message = "error on create"
     }
     res.json({ message });
