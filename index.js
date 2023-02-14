@@ -2,10 +2,9 @@ const { exec } = require('child_process');
 const express = require('express');
 const app = express();
 const PORT = 3001;
-const products_router = require('./routes/products');
 const routerApi = require('./routes');
 
-routerApi(app);
+routerApi(app, "api");
 
 app.listen(PORT, () => {
     console.log('CORRIENDO');

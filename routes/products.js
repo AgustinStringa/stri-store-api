@@ -15,4 +15,4 @@ products_router.get('/', function (req, res) {
     res.json(products);
 });
 
-module.exports = products_router;
+module.exports = { route_name: 'products', router: products_router };

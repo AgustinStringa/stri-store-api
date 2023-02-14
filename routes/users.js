@@ -1,0 +1,17 @@
+const express = require('express');
+const faker = require('faker');
+const users_router = express.Router()
+users_router.get('/', function (req, res) {
+    const limit = req.query.limit || 10;
+    const users = [];
+    for (let index = 1; index <= limit; index++) {
+        users.push({
+            name: faker.name.findName(),
+            email: faker.internet.email(),
+            card: faker.helpers.createCard(),
+        })
+    }
+    res.json(users);
+});
+
+module.exports = { route_name: 'users', router: users_router };
