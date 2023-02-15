@@ -10,6 +10,7 @@ routerApi(app, "api/v1");
 app.listen(PORT, () => {
     console.log('CORRIENDO');
     console.log(`http://192.168.1.113:${PORT}/`);
+    console.log(`http://localhost:${PORT}/`);
 });
 
 /**VER IP PARA ACCEDER DESDE MOVILES */
