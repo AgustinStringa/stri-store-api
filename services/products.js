@@ -73,15 +73,24 @@ class ProductService {
             let index = 0;
             while (!flag && index < this.products.length) {
                 if (this.products[index].id == id) {
-                    this.products[index] = productData;
-                    this.products[index].id = id;
+                    this.products[index] = {
+                        ...this.products[index],
+                        ...productData
+                    };
+                    // this.products[index].id = id;
                     flag = true
                 }
                 index++
             }
-            return {
-                message: `product ${id} updated`,
-                productData: this.getProductById(id)
+            if (flag) {
+                return {
+                    message: `product ${id} updated`,
+                    productData: this.getProductById(id)
+                }
+            } else {
+                return {
+                    message: `we could not found product with id ${id}`
+                }
             }
         } else {
             return {
