@@ -1,4 +1,5 @@
 const faker = require('faker');
+const { v4: uuidv4 } = require('uuid');
 // const createProduct = (productData) => {
 
 // }
@@ -88,6 +89,23 @@ class ProductService {
             }
         }
 
+    }
+    createProduct(productData) {
+        if (!productData?.name) {
+            return {
+                message: "there is no data"
+            }
+        } else {
+            //ADD ELEMENT
+            const newProduct = {
+                id: uuidv4(),
+                ...productData
+            }
+            this.products = [...this.products, newProduct]
+            return {
+                newProduct: newProduct
+            }
+        }
     }
 }
 module.exports = {
