@@ -2,10 +2,14 @@ const express = require('express');
 const { ProductService } = require('../services/products');
 const products_router = express.Router()
 const products_service = new ProductService();
-products_router.get('/', function (req, res) {
-    const limit = req.query.limit || 100;
-    const products = products_service.getProducts(limit);
-    res.status(200).json({ products, length: products.length });
+products_router.get('/', async function (req, res) {
+    try {
+        const limit = req.query.limit || 100;
+        const products = await products_service.getProducts(limit);
+        res.status(200).json({ products, length: products.length });
+    } catch (error) {
+        res.json({ error: "error capturado" })
+    }
 });
 products_router.get('/:id', function (req, res) {
     const id = req.params.id || "49112a34-238d-4394-916d-0d5d107ad674";

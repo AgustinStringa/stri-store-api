@@ -41,10 +41,19 @@ class ProductService {
         }
         this.products = products
     }
-    getProducts(limit) {
-        return this.products.slice(0, limit)
+    async getProducts(limit) {
+        // throw new Error("errorasdasd") //aca se captura con el try catch en las rutas
+
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                // throw new Error("errorasdasd") //este no se capturaria, haria falta un try catch aca
+                res(this.products.slice(0, limit))
+                // rej("asd")
+            }, 2000)
+        })
+
     }
-    getProductById(id) {
+    async getProductById(id) {
         const product = this.products.find((el) => el.id == id);
         if (product) {
             return product
@@ -54,7 +63,7 @@ class ProductService {
             }
         }
     }
-    deleteProduct(id) {
+    async deleteProduct(id) {
         if (id) {
             const product_removed = this.getProductById(id);
             this.products = this.products.filter((el) => el.id != id)
@@ -67,7 +76,7 @@ class ProductService {
             }
         }
     }
-    updateProduct(id, productData) {
+    async updateProduct(id, productData) {
         if (id && productData) {
             let flag = false;
             let index = 0;
@@ -99,7 +108,7 @@ class ProductService {
         }
 
     }
-    createProduct(productData) {
+    async createProduct(productData) {
         if (!productData?.name) {
             return {
                 message: "there is no data"
