@@ -74,7 +74,7 @@ class ProductService {
             if (flag) {
                 return {
                     message: `product ${id} updated`,
-                    productData: this.getProductById(id)
+                    productData: await this.getProductById(id)
                 }
             } else {
                 throw boom.notFound(`we could not found product with id ${id}`)
@@ -85,10 +85,8 @@ class ProductService {
 
     }
     async createProduct(productData) {
-        if (!productData?.name) {
-            return {
-                message: "there is no data"
-            }
+        if (!productData?.name || !productData.price) {
+            throw boom.badRequest("Invalid product");
         } else {
             //ADD ELEMENT
             const newProduct = {

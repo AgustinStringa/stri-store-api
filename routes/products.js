@@ -28,16 +28,20 @@ products_router.get('/:id', async function (req, res, next) {
     // }
 });
 
-products_router.post('/', async function (req, res) {
-    const { product } = req.body;
-    const newProduct = await products_service.createProduct(product);
-    res.json(newProduct).status(201);
+products_router.post('/', async function (req, res, next) {
+    try {
+        const newProduct = await products_service.createProduct(req.body);
+        res.json(newProduct).status(201);
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+
 });
 products_router.patch('/:id', async function (req, res, next) {
     try {
         const { id } = req.params;
-        const { product } = req.body;
-        const newProduct = await products_service.updateProduct(id, product);
+        const newProduct = await products_service.updateProduct(id, req.body);
         res.json({ product: newProduct });
     } catch (error) {
         console.error(error);
