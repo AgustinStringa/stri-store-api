@@ -5,7 +5,7 @@ const PORT = 3001;
 const routerApi = require('./routes');
 
 app.use(express.json())
-routerApi(app, "api/v1");
+routerApi(app);
 
 app.listen(PORT, () => {
     console.log('CORRIENDO');

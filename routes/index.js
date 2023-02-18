@@ -1,12 +1,15 @@
-const products_router = require('./products');
-const users_router = require('./users');
-function routerApi(app, prefix = "api") {
-    const routers = [products_router, users_router];
+const { products_router } = require('./products');
+const { users_router } = require('./users');
+const { categories_router } = require('./categories');
+const express = require('express');
+function routerApi(app) {
+    const router = express.Router();
+    app.use('/api/v1', router);
     app.get('/', function (req, res) {
         res.send('hello world')
     })
-    routers.forEach((element) => {
-        app.use(`/${prefix}/${element.route_name}`, element.router)
-    })
+    router.use('/products', products_router);
+    router.use('/users', users_router);
+    router.use('/categories', categories_router);
 }
 module.exports = routerApi;

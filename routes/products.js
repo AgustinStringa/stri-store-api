@@ -27,7 +27,7 @@ products_router.post('/', function (req, res) {
     const newProduct = products_service.createProduct(product);
     res.json(newProduct).status(201);
 });
-products_router.put('/:id', function (req, res) {
+products_router.patch('/:id', function (req, res) {
     const { id } = req.params;
     const { product } = req.body;
     const newProduct = products_service.updateProduct(id, product)
@@ -38,4 +38,4 @@ products_router.delete('/:id', function (req, res) {
     const product = products_service.deleteProduct(id);
     res.json({ product: product });
 });
-module.exports = { route_name: 'products', router: products_router };
+module.exports = { products_router };

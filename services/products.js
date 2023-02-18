@@ -1,28 +1,5 @@
 const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
-// const createProduct = (productData) => {
-
-// }
-
-// const getProducts = (limit) => {
-//     const products = [];
-//     for (let index = 1; index <= limit; index++) {
-//         products.push({
-//             name: faker.commerce.product(),
-//             price: parseFloat(faker.commerce.price()),
-//             image: faker.image.imageUrl(),
-//         })
-//     }
-//     return products
-// }
-// const getProductBy = () => { }
-// const updateProduct = () => { }
-// const deleteProduct = () => { }
-
-
-// module.exports = {
-//     getProducts: getProducts,
-// }
 
 class ProductService {
     constructor() {
@@ -48,7 +25,6 @@ class ProductService {
             setTimeout(() => {
                 // throw new Error("errorasdasd") //este no se capturaria, haria falta un try catch aca
                 res(this.products.slice(0, limit))
-                // rej("asd")
             }, 2000)
         })
 

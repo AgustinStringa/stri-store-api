@@ -26,4 +26,4 @@ users_router.post('/', function (req, res) {
     res.json({ message });
 });
 
-module.exports = { route_name: 'users', router: users_router };
+module.exports = { users_router };
