@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 const express = require('express');
-const { logErrors, errorHandler } = require('./middlewars/error_handler');
+const { logErrors, errorHandler, boomErrorHanlder } = require('./middlewars/error_handler');
 const app = express();
 const PORT = 3001;
 const routerApi = require('./routes');
@@ -9,6 +9,7 @@ app.use(express.json());
 routerApi(app);
 //MIDDLWARE AFTER ROUTERAPI(API)
 app.use(logErrors);
+app.use(boomErrorHanlder);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

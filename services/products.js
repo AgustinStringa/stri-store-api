@@ -1,6 +1,6 @@
 const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
-
+const boom = require('@hapi/boom');
 class ProductService {
     constructor() {
         this.products = []
@@ -14,6 +14,7 @@ class ProductService {
                 name: faker.commerce.product(),
                 price: parseFloat(faker.commerce.price()),
                 image: faker.image.imageUrl(),
+                isBlock: faker.datatype.boolean(),
             })
         }
         this.products = products
@@ -32,25 +33,27 @@ class ProductService {
     }
     async getProductById(id) {
         const product = this.products.find((el) => el.id == id);
-        if (product) {
+        if (!product) {
             return product
+        } else if (product.isBlock) {
+            throw boom.forbidden(`you cannot access to this product`)
         } else {
-            return {
-                error_message: "product not found"
-            }
+            return product
         }
     }
     async deleteProduct(id) {
         if (id) {
-            const product_removed = this.getProductById(id);
-            this.products = this.products.filter((el) => el.id != id)
-            return {
-                product_removed
+            try {
+                const product_removed = await this.getProductById(id);
+                this.products = this.products.filter((el) => el.id != id)
+                return {
+                    product_removed
+                }
+            } catch (error) {
+                throw boom.notFound(`we could not found product with id ${id}`)
             }
         } else {
-            return {
-                error_message: "product not found"
-            }
+            throw boom.badRequest(`invalid url`)
         }
     }
     async updateProduct(id, productData) {
@@ -74,10 +77,10 @@ class ProductService {
                     productData: this.getProductById(id)
                 }
             } else {
-                throw Error(`we could not found product with id ${id}`)
+                throw boom.notFound(`we could not found product with id ${id}`)
             }
         } else {
-            throw new Error(`there is no data to update`)
+            throw boom.badRequest(`there is no data to update`)
         }
 
     }

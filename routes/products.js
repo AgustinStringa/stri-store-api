@@ -12,20 +12,25 @@ products_router.get('/', async function (req, res, next) {
         next(error);
     }
 });
-products_router.get('/:id', function (req, res) {
-    const id = req.params.id || "49112a34-238d-4394-916d-0d5d107ad674";
-    const product = products_service.getProductById(id);
-    if (product.error_message) {
-        res.status(404);
-    } else {
-        res.status(200);
+products_router.get('/:id', async function (req, res, next) {
+    try {
+        const id = req.params.id || "49112a34-238d-4394-916d-0d5d107ad674";
+        const product = await products_service.getProductById(id);
+        res.status(200).json({ product: product });
+    } catch (error) {
+        console.error(error);
+        next(error);
     }
-    res.json({ product: product });
+    // if (product.error_message) {
+    //     res.status(404);
+    // } else {
+    //     res.status(200);
+    // }
 });
 
-products_router.post('/', function (req, res) {
+products_router.post('/', async function (req, res) {
     const { product } = req.body;
-    const newProduct = products_service.createProduct(product);
+    const newProduct = await products_service.createProduct(product);
     res.json(newProduct).status(201);
 });
 products_router.patch('/:id', async function (req, res, next) {
@@ -35,13 +40,18 @@ products_router.patch('/:id', async function (req, res, next) {
         const newProduct = await products_service.updateProduct(id, product);
         res.json({ product: newProduct });
     } catch (error) {
-        console.error(error)
+        console.error(error);
         next(error);
     }
 });
-products_router.delete('/:id', function (req, res) {
-    const { id } = req.params;
-    const product = products_service.deleteProduct(id);
-    res.json({ product: product });
+products_router.delete('/:id', async function (req, res, next) {
+    try {
+        const { id } = req.params;
+        const product = await products_service.deleteProduct(id);
+        res.json({ product: product });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
 });
 module.exports = { products_router };
