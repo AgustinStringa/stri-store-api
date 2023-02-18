@@ -5,8 +5,8 @@ const app = express();
 const PORT = 3001;
 const routerApi = require('./routes');
 
-routerApi(app);
 app.use(express.json());
+routerApi(app);
 //MIDDLWARE AFTER ROUTERAPI(API)
 app.use(logErrors);
 app.use(errorHandler);

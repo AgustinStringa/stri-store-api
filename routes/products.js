@@ -28,11 +28,16 @@ products_router.post('/', function (req, res) {
     const newProduct = products_service.createProduct(product);
     res.json(newProduct).status(201);
 });
-products_router.patch('/:id', function (req, res) {
-    const { id } = req.params;
-    const { product } = req.body;
-    const newProduct = products_service.updateProduct(id, product)
-    res.json({ product: newProduct });
+products_router.patch('/:id', async function (req, res, next) {
+    try {
+        const { id } = req.params;
+        const { product } = req.body;
+        const newProduct = await products_service.updateProduct(id, product);
+        res.json({ product: newProduct });
+    } catch (error) {
+        console.error(error)
+        next(error);
+    }
 });
 products_router.delete('/:id', function (req, res) {
     const { id } = req.params;

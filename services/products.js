@@ -74,14 +74,10 @@ class ProductService {
                     productData: this.getProductById(id)
                 }
             } else {
-                return {
-                    message: `we could not found product with id ${id}`
-                }
+                throw Error(`we could not found product with id ${id}`)
             }
         } else {
-            return {
-                message: `there is nothing to update`,
-            }
+            throw new Error(`there is no data to update`)
         }
 
     }
