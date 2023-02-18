@@ -1,11 +1,15 @@
 const { exec } = require('child_process');
 const express = require('express');
+const { logErrors, errorHandler } = require('./middlewars/error_handler');
 const app = express();
 const PORT = 3001;
 const routerApi = require('./routes');
 
-app.use(express.json())
 routerApi(app);
+app.use(express.json());
+//MIDDLWARE AFTER ROUTERAPI(API)
+app.use(logErrors);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log('CORRIENDO');

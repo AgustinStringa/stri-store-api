@@ -19,10 +19,11 @@ class ProductService {
         this.products = products
     }
     async getProducts(limit) {
+        // 3 + z
         // throw new Error("errorasdasd") //aca se captura con el try catch en las rutas
-
         return new Promise((res, rej) => {
             setTimeout(() => {
+
                 // throw new Error("errorasdasd") //este no se capturaria, haria falta un try catch aca
                 res(this.products.slice(0, limit))
             }, 2000)
