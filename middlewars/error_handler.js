@@ -14,7 +14,7 @@ function boomErrorHanlder(err, req, res, next) {
         console.error(err);
         const { output } = err;
         const { payload: { statusCode, message, headers } } = output;
-        res.status(statusCode).json({ mesage: message });
+        res.status(statusCode).json({ message: message, statusCode });
     }
     next(err);
 }

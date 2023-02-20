@@ -32,9 +32,10 @@ class ProductService {
 
     }
     async getProductById(id) {
-        const product = this.products.find((el) => el.id == id);
+        const products = this.products;
+        const product = products.find((el) => el.id == id);
         if (!product) {
-            return product
+            throw boom.notFound(`Product with id '${id}' Not Found :(`)
         } else if (product.isBlock) {
             throw boom.forbidden(`you cannot access to this product`)
         } else {
