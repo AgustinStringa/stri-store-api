@@ -2,7 +2,7 @@ const { exec } = require('child_process');
 const express = require('express');
 const { logErrors, errorHandler, boomErrorHanlder } = require('./middlewars/error_handler');
 const app = express();
-const PORT = 3001;
+const PORT = `0.0.0.0:$PORT`;
 const routerApi = require('./routes');
 const cors = require('cors');
 
