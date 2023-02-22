@@ -26,7 +26,7 @@ app.use(logErrors);
 app.use(boomErrorHanlder);
 app.use(errorHandler);
 
-app.listen(`0.0.0.0:${PORT}`, () => {
+app.listen(`${PORT}`, () => {
     console.log('CORRIENDO');
     console.log(`el puerto es ${PORT}`);
     // console.log(`http://192.168.1.113:${PORT}/`);
