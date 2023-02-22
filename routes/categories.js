@@ -6,7 +6,7 @@ categories_router.get('/', (req, res) => {
         res.json({ message: 'llegaste a las categories' })
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 })
 module.exports = {

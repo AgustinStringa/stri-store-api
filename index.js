@@ -4,7 +4,21 @@ const { logErrors, errorHandler, boomErrorHanlder } = require('./middlewars/erro
 const app = express();
 const PORT = 3001;
 const routerApi = require('./routes');
+const cors = require('cors');
 
+const whitelist = [""];
+const allAllowed = true;
+const corsOptions = {
+    origin: (origin, callback) => {
+        // if (whitelist.includes(origin)) {
+        if (allAllowed) {
+            callback(null, true)
+        } else {
+            callback(new Error("no permitido"))
+        }
+    }
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 routerApi(app);
 //MIDDLWARE AFTER ROUTERAPI(API)
