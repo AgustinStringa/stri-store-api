@@ -1,6 +1,8 @@
+require('module-alias/register')
 const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
 const boom = require('@hapi/boom');
+const { validatorHandler } = require('@middlewars/validator_handler');
 class UserService {
     constructor() {
         this.users = this.generateUsers();
