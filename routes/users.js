@@ -1,6 +1,7 @@
+require('module-alias/register')
 const express = require('express');
 const users_router = express.Router()
-const { UserServices } = require('../services/users'); //class
+const { UserServices } = require('@services/users.js'); //class
 users_router.get('/', async function (req, res, next) {
     try {
         const users = [];

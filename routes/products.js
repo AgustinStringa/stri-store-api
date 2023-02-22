@@ -1,10 +1,11 @@
+require('module-alias/register')
 const express = require('express');
-const { ProductService } = require('../services/products');
+const { ProductService } = require('@services/products');
 const products_router = express.Router()
 const products_service = new ProductService();
 const boom = require('@hapi/boom');
-const { validatorHandler } = require('../middlewars/validator_handler');
-const { product_schema, update_product_schema, get_product_schema } = require('../schemas/product');
+const { validatorHandler } = require('@middlewars/validator_handler');
+const { product_schema, update_product_schema, get_product_schema } = require('@schemas/product');
 products_router.get('/', async function (req, res, next) {
     try {
         const limit = req.query.limit || 100;

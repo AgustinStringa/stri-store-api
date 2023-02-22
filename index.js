@@ -1,9 +1,10 @@
+require('module-alias/register')
 const { exec } = require('child_process');
 const express = require('express');
-const { logErrors, errorHandler, boomErrorHanlder } = require('./middlewars/error_handler');
+const { logErrors, errorHandler, boomErrorHanlder } = require('@middlewars/error_handler.js');
 const app = express();
 const PORT = process.env.PORT || `3001`;
-const routerApi = require('./routes');
+const routerApi = require('@routes/index.js');
 const cors = require('cors');
 
 const whitelist = [""];
@@ -30,7 +31,7 @@ app.listen(`${PORT}`, () => {
     console.log('CORRIENDO');
     console.log(`el puerto es ${PORT}`);
     // console.log(`http://192.168.1.113:${PORT}/`);
-    // console.log(`http://localhost:${PORT}/`);
+    console.log(`http://localhost:${PORT}/`);
 });
 
 /**VER IP PARA ACCEDER DESDE MOVILES */

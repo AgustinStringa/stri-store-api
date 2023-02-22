@@ -1,6 +1,7 @@
-const { products_router } = require('./products');
-const { users_router } = require('./users');
-const { categories_router } = require('./categories');
+require('module-alias/register')
+const { products_router } = require('@routes/products');
+const { users_router } = require('@routes/users');
+const { categories_router } = require('@routes/categories');
 const express = require('express');
 function routerApi(app) {
     const router = express.Router();
