@@ -2,7 +2,7 @@ const { exec } = require('child_process');
 const express = require('express');
 const { logErrors, errorHandler, boomErrorHanlder } = require('./middlewars/error_handler');
 const app = express();
-const PORT = `0.0.0.0:$PORT`;
+const PORT = process.env.PORT || `3001`;
 const routerApi = require('./routes');
 const cors = require('cors');
 
@@ -26,10 +26,11 @@ app.use(logErrors);
 app.use(boomErrorHanlder);
 app.use(errorHandler);
 
-app.listen(`0.0.0.0:${process.env.PORT}`, () => {
+app.listen(`0.0.0.0:${PORT}`, () => {
     console.log('CORRIENDO');
-    console.log(`http://192.168.1.113:${PORT}/`);
-    console.log(`http://localhost:${PORT}/`);
+    console.log(`el puerto es ${PORT}`);
+    // console.log(`http://192.168.1.113:${PORT}/`);
+    // console.log(`http://localhost:${PORT}/`);
 });
 
 /**VER IP PARA ACCEDER DESDE MOVILES */
