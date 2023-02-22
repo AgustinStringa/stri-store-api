@@ -1,29 +1,53 @@
 const express = require('express');
-const faker = require('faker');
 const users_router = express.Router()
-users_router.get('/', function (req, res) {
-    const limit = req.query.limit || 10;
-    const users = [];
-    for (let index = 1; index <= limit; index++) {
-        users.push({
-            name: faker.name.findName(),
-            email: faker.internet.email(),
-            card: faker.helpers.createCard(),
-        })
-    }
-    res.json(users);
-});
-users_router.post('/', function (req, res) {
+const { UserServices } = require('../services/users'); //class
+users_router.get('/', async function (req, res, next) {
+    try {
+        const users = [];
+        res.status(200).json({ users });
 
-    let message = ""
-    if (req.body.name) {
-        res.status(200);
-        message = "successfully created"
-    } else {
-        res.status(204);
-        message = "error on create"
+    } catch (error) {
+        console.error(error);
+        next(error);
     }
-    res.json({ message });
 });
+users_router.post('/', async function (req, res, next) {
+    try {
+        const newUser = {};
+        res.status(201).json({ newUser });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+users_router.patch('/:id', async function (req, res, next) {
+    try {
+        const { id } = req.params;
+        //TODO- HACER MODELO-VALIDAR DATOS
+        const updatedUser = {
+            id: id,
+            name: '',
+            surname: '',
+            email: '',
+        }
+        res.json({
+            updatedUser
+        });
 
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+users_router.delete('/:id',
+    async function (req, res, next) {
+        try {
+            const { id } = req.params;
+            const deletedUser = {};
+            res.json({ deletedUser: deletedUser });
+        } catch (error) {
+            console.error(error);
+            next(error);
+        }
+    });
 module.exports = { users_router };
